@@ -1,7 +1,22 @@
 class Order < ApplicationRecord
   self.primary_key = 'order_id'
-  has_many :invoices
-  has_many :patients, through: :invoices
+  has_many :invoices, -> { where state: 'active' }
+  has_many :patients, -> { where(state: 'active') }, through: :invoices
+
+  scope :active, -> { where(state: 'active') }
+
+  def self.process(uploaded_io)
+    begin
+      filename = Rails.root.join('public', uploaded_io.original_filename)
+      File.open(filename, 'w') do |file|
+        file.write(uploaded_io.read)
+      end
+      import(filename)
+    rescue => exception
+      puts exception
+      return false
+    end
+  end
 
   def self.import(filename)
     data = SmarterCSV.process(filename)

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Import a file</h1>
+
+<%= form_tag orders_import_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
+
+<h1>Orders</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>State</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= link_to order.category, patient_path(order) %></td>
+        <td><%= order.state %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
