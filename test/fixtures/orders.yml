@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  category: MyString
-  state: MyString
+  category: category one
+  state: active
 
-two:
-  category: MyString
-  state: MyString
+# two:
+#   category: category two
+#   state: active
