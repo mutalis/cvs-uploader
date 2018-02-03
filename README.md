@@ -31,6 +31,23 @@ Things you may want to cover:
 * Some of the invoices are invalid (reference non-existing patient or order).
 
 
+### Using value converters
+
+```
+class IdConverter
+ def self.convert(value)
+  value[0]=''
+  value
+  end
+end
+
+filename='/tmp/file.csv'
+
+options={value_converters: {order_id: IdConverter, patient_id: IdConverter}}
+
+data=SmarterCSV.process(filename, options)
+```
+
 ## License
 
 Source code released under the [GNU General Public License](http://www.gnu.org/licenses/gpl-3.0.html) as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. Docs released under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
